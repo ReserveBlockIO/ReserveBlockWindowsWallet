@@ -53,7 +53,7 @@ namespace ReserveBlockWinWallet
             }
             
 
-            nodeURL = "https://localhost:7777";
+            nodeURL = "http://localhost:8080";
 
             GetWalletOnline();
 
