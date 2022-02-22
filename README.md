@@ -3,7 +3,6 @@
 [![Generic badge](https://img.shields.io/badge/%2ENet%20Core-6%2E0-blue.svg)](https://shields.io/)
 
 ![license](https://img.shields.io/github/license/ReserveBlockIO/Core-CLI)
-![build](https://img.shields.io/github/workflow/status/ReserveBlockIO/ReserveBlockWindowsWallet/.NET)
 ![issues](https://img.shields.io/github/issues/ReserveBlockIO/ReserveBlockWindowsWallet)
 ![Discord](https://img.shields.io/discord/917499597692211260?label=discord)
 
