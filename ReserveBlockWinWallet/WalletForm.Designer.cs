@@ -28,6 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WalletForm));
             this.lostPanel1 = new ReaLTaiizor.Controls.LostPanel();
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
@@ -75,7 +79,7 @@
             this.dashboardMainBox = new System.Windows.Forms.RichTextBox();
             this.skyLabel11 = new ReaLTaiizor.Controls.SkyLabel();
             this.dashPrintAllAddrBtn = new ReaLTaiizor.Controls.LostAcceptButton();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.dashRecentTxBox = new System.Windows.Forms.RichTextBox();
             this.skyLabel9 = new ReaLTaiizor.Controls.SkyLabel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.skyLabel18 = new ReaLTaiizor.Controls.SkyLabel();
@@ -91,6 +95,7 @@
             this.skyLabel12 = new ReaLTaiizor.Controls.SkyLabel();
             this.txSendAddressDropDown = new ReaLTaiizor.Controls.CrownDropDownList();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.chatButtonRight1 = new ReaLTaiizor.Controls.ChatButtonRight();
             this.recGetNewAddressBtn = new ReaLTaiizor.Controls.LostAcceptButton();
             this.separator1 = new ReaLTaiizor.Controls.Separator();
             this.recValiFlag = new ReaLTaiizor.Controls.SkyLabel();
@@ -128,6 +133,18 @@
             this.skyLabel34 = new ReaLTaiizor.Controls.SkyLabel();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.lostPanel2 = new ReaLTaiizor.Controls.LostPanel();
+            this.transactionsGrid = new ReaLTaiizor.Controls.PoisonDataGridView();
+            this.transactionBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.hashDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toAddressDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fromAddressDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.amountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nonceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.feeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.timestampDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nFTDataDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.signatureDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.heightDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lostPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
@@ -146,7 +163,10 @@
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.transactionsGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.transactionBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // lostPanel1
@@ -255,7 +275,7 @@
             this.dashMainBalLabel.AutoSize = true;
             this.dashMainBalLabel.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.dashMainBalLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(239)))), ((int)(((byte)(255)))));
-            this.dashMainBalLabel.Location = new System.Drawing.Point(77, 81);
+            this.dashMainBalLabel.Location = new System.Drawing.Point(5, 87);
             this.dashMainBalLabel.Name = "dashMainBalLabel";
             this.dashMainBalLabel.Size = new System.Drawing.Size(66, 17);
             this.dashMainBalLabel.TabIndex = 9;
@@ -266,7 +286,7 @@
             this.crownLabel1.AutoSize = true;
             this.crownLabel1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.crownLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.crownLabel1.Location = new System.Drawing.Point(54, 106);
+            this.crownLabel1.Location = new System.Drawing.Point(3, 105);
             this.crownLabel1.Name = "crownLabel1";
             this.crownLabel1.Size = new System.Drawing.Size(127, 21);
             this.crownLabel1.TabIndex = 8;
@@ -652,7 +672,7 @@
             this.tabPage1.Controls.Add(this.dashboardMainBox);
             this.tabPage1.Controls.Add(this.skyLabel11);
             this.tabPage1.Controls.Add(this.dashPrintAllAddrBtn);
-            this.tabPage1.Controls.Add(this.richTextBox1);
+            this.tabPage1.Controls.Add(this.dashRecentTxBox);
             this.tabPage1.Controls.Add(this.skyLabel9);
             this.tabPage1.Location = new System.Drawing.Point(4, 5);
             this.tabPage1.Name = "tabPage1";
@@ -751,17 +771,17 @@
             this.dashPrintAllAddrBtn.Text = "Print Addresses";
             this.dashPrintAllAddrBtn.Click += new System.EventHandler(this.dashPrintAllAddrBtn_Click);
             // 
-            // richTextBox1
+            // dashRecentTxBox
             // 
-            this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(239)))), ((int)(((byte)(255)))));
-            this.richTextBox1.Location = new System.Drawing.Point(6, 291);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(494, 181);
-            this.richTextBox1.TabIndex = 3;
-            this.richTextBox1.Text = "";
+            this.dashRecentTxBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
+            this.dashRecentTxBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dashRecentTxBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(239)))), ((int)(((byte)(255)))));
+            this.dashRecentTxBox.Location = new System.Drawing.Point(6, 291);
+            this.dashRecentTxBox.Name = "dashRecentTxBox";
+            this.dashRecentTxBox.ReadOnly = true;
+            this.dashRecentTxBox.Size = new System.Drawing.Size(494, 181);
+            this.dashRecentTxBox.TabIndex = 3;
+            this.dashRecentTxBox.Text = "";
             // 
             // skyLabel9
             // 
@@ -933,6 +953,7 @@
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.tabPage3.Controls.Add(this.chatButtonRight1);
             this.tabPage3.Controls.Add(this.recGetNewAddressBtn);
             this.tabPage3.Controls.Add(this.separator1);
             this.tabPage3.Controls.Add(this.recValiFlag);
@@ -949,6 +970,28 @@
             this.tabPage3.Size = new System.Drawing.Size(506, 494);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
+            // 
+            // chatButtonRight1
+            // 
+            this.chatButtonRight1.BackColor = System.Drawing.Color.Transparent;
+            this.chatButtonRight1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.chatButtonRight1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.chatButtonRight1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(234)))), ((int)(((byte)(234)))));
+            this.chatButtonRight1.Image = null;
+            this.chatButtonRight1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.chatButtonRight1.InactiveColorA = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(231)))));
+            this.chatButtonRight1.InactiveColorB = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(224)))));
+            this.chatButtonRight1.Location = new System.Drawing.Point(29, 160);
+            this.chatButtonRight1.Name = "chatButtonRight1";
+            this.chatButtonRight1.PressedColorA = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(118)))), ((int)(((byte)(176)))));
+            this.chatButtonRight1.PressedColorB = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(149)))), ((int)(((byte)(222)))));
+            this.chatButtonRight1.PressedContourColorA = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(118)))), ((int)(((byte)(176)))));
+            this.chatButtonRight1.PressedContourColorB = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(118)))), ((int)(((byte)(176)))));
+            this.chatButtonRight1.Size = new System.Drawing.Size(105, 29);
+            this.chatButtonRight1.TabIndex = 27;
+            this.chatButtonRight1.Text = "Copy Address";
+            this.chatButtonRight1.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.chatButtonRight1.Click += new System.EventHandler(this.chatButtonRight1_Click);
             // 
             // recGetNewAddressBtn
             // 
@@ -1073,6 +1116,7 @@
             // tabPage4
             // 
             this.tabPage4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.tabPage4.Controls.Add(this.transactionsGrid);
             this.tabPage4.Location = new System.Drawing.Point(4, 5);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(506, 494);
@@ -1363,6 +1407,141 @@
             this.lostPanel2.Size = new System.Drawing.Size(508, 20);
             this.lostPanel2.TabIndex = 35;
             // 
+            // transactionsGrid
+            // 
+            this.transactionsGrid.AllowUserToAddRows = false;
+            this.transactionsGrid.AllowUserToDeleteRows = false;
+            this.transactionsGrid.AllowUserToOrderColumns = true;
+            this.transactionsGrid.AllowUserToResizeRows = false;
+            this.transactionsGrid.AutoGenerateColumns = false;
+            this.transactionsGrid.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.transactionsGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.transactionsGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.transactionsGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.transactionsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.transactionsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.transactionsGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.hashDataGridViewTextBoxColumn,
+            this.toAddressDataGridViewTextBoxColumn,
+            this.fromAddressDataGridViewTextBoxColumn,
+            this.amountDataGridViewTextBoxColumn,
+            this.nonceDataGridViewTextBoxColumn,
+            this.feeDataGridViewTextBoxColumn,
+            this.timestampDataGridViewTextBoxColumn,
+            this.nFTDataDataGridViewTextBoxColumn,
+            this.signatureDataGridViewTextBoxColumn,
+            this.heightDataGridViewTextBoxColumn});
+            this.transactionsGrid.DataSource = this.transactionBindingSource;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.transactionsGrid.DefaultCellStyle = dataGridViewCellStyle2;
+            this.transactionsGrid.EnableHeadersVisualStyles = false;
+            this.transactionsGrid.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.transactionsGrid.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.transactionsGrid.Location = new System.Drawing.Point(3, 23);
+            this.transactionsGrid.Name = "transactionsGrid";
+            this.transactionsGrid.ReadOnly = true;
+            this.transactionsGrid.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.transactionsGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.transactionsGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.transactionsGrid.RowTemplate.Height = 25;
+            this.transactionsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.transactionsGrid.Size = new System.Drawing.Size(489, 468);
+            this.transactionsGrid.TabIndex = 0;
+            // 
+            // transactionBindingSource
+            // 
+            this.transactionBindingSource.DataSource = typeof(ReserveBlockWinWallet.Models.Transaction);
+            // 
+            // hashDataGridViewTextBoxColumn
+            // 
+            this.hashDataGridViewTextBoxColumn.DataPropertyName = "Hash";
+            this.hashDataGridViewTextBoxColumn.HeaderText = "Hash";
+            this.hashDataGridViewTextBoxColumn.Name = "hashDataGridViewTextBoxColumn";
+            this.hashDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // toAddressDataGridViewTextBoxColumn
+            // 
+            this.toAddressDataGridViewTextBoxColumn.DataPropertyName = "ToAddress";
+            this.toAddressDataGridViewTextBoxColumn.HeaderText = "ToAddress";
+            this.toAddressDataGridViewTextBoxColumn.Name = "toAddressDataGridViewTextBoxColumn";
+            this.toAddressDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // fromAddressDataGridViewTextBoxColumn
+            // 
+            this.fromAddressDataGridViewTextBoxColumn.DataPropertyName = "FromAddress";
+            this.fromAddressDataGridViewTextBoxColumn.HeaderText = "FromAddress";
+            this.fromAddressDataGridViewTextBoxColumn.Name = "fromAddressDataGridViewTextBoxColumn";
+            this.fromAddressDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // amountDataGridViewTextBoxColumn
+            // 
+            this.amountDataGridViewTextBoxColumn.DataPropertyName = "Amount";
+            this.amountDataGridViewTextBoxColumn.HeaderText = "Amount";
+            this.amountDataGridViewTextBoxColumn.Name = "amountDataGridViewTextBoxColumn";
+            this.amountDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // nonceDataGridViewTextBoxColumn
+            // 
+            this.nonceDataGridViewTextBoxColumn.DataPropertyName = "Nonce";
+            this.nonceDataGridViewTextBoxColumn.HeaderText = "Nonce";
+            this.nonceDataGridViewTextBoxColumn.Name = "nonceDataGridViewTextBoxColumn";
+            this.nonceDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // feeDataGridViewTextBoxColumn
+            // 
+            this.feeDataGridViewTextBoxColumn.DataPropertyName = "Fee";
+            this.feeDataGridViewTextBoxColumn.HeaderText = "Fee";
+            this.feeDataGridViewTextBoxColumn.Name = "feeDataGridViewTextBoxColumn";
+            this.feeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // timestampDataGridViewTextBoxColumn
+            // 
+            this.timestampDataGridViewTextBoxColumn.DataPropertyName = "Timestamp";
+            this.timestampDataGridViewTextBoxColumn.HeaderText = "Timestamp";
+            this.timestampDataGridViewTextBoxColumn.Name = "timestampDataGridViewTextBoxColumn";
+            this.timestampDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // nFTDataDataGridViewTextBoxColumn
+            // 
+            this.nFTDataDataGridViewTextBoxColumn.DataPropertyName = "NFTData";
+            this.nFTDataDataGridViewTextBoxColumn.HeaderText = "NFTData";
+            this.nFTDataDataGridViewTextBoxColumn.Name = "nFTDataDataGridViewTextBoxColumn";
+            this.nFTDataDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // signatureDataGridViewTextBoxColumn
+            // 
+            this.signatureDataGridViewTextBoxColumn.DataPropertyName = "Signature";
+            this.signatureDataGridViewTextBoxColumn.HeaderText = "Signature";
+            this.signatureDataGridViewTextBoxColumn.Name = "signatureDataGridViewTextBoxColumn";
+            this.signatureDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // heightDataGridViewTextBoxColumn
+            // 
+            this.heightDataGridViewTextBoxColumn.DataPropertyName = "Height";
+            this.heightDataGridViewTextBoxColumn.HeaderText = "Height";
+            this.heightDataGridViewTextBoxColumn.Name = "heightDataGridViewTextBoxColumn";
+            this.heightDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
             // WalletForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
@@ -1404,8 +1583,11 @@
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.transactionsGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.transactionBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1456,7 +1638,7 @@
         private TabPage tabPage4;
         private TabPage tabPage5;
         private TabPage tabPage6;
-        private RichTextBox richTextBox1;
+        private RichTextBox dashRecentTxBox;
         private ReaLTaiizor.Controls.SkyLabel skyLabel9;
         private ReaLTaiizor.Controls.LostAcceptButton dashClearMainBtn;
         private ReaLTaiizor.Controls.LostAcceptButton dashGetBlkChnBtn;
@@ -1511,5 +1693,18 @@
         private ReaLTaiizor.Controls.CrownSeparator crownSeparator2;
         private ReaLTaiizor.Controls.LostPanel lostPanel2;
         private ReaLTaiizor.Controls.LostAcceptButton recGetNewAddressBtn;
+        private ReaLTaiizor.Controls.ChatButtonRight chatButtonRight1;
+        private ReaLTaiizor.Controls.PoisonDataGridView transactionsGrid;
+        private DataGridViewTextBoxColumn hashDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn toAddressDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn fromAddressDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn amountDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn nonceDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn feeDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn timestampDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn nFTDataDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn signatureDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn heightDataGridViewTextBoxColumn;
+        private BindingSource transactionBindingSource;
     }
 }

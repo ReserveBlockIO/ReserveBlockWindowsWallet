@@ -61,6 +61,8 @@ namespace ReserveBlockWinWallet
 
             GetWalletValidatorAddresses();
 
+            DashPrintWalletTransactions();
+
         }
 
         #region Wallet Get Walelt Online
@@ -174,7 +176,7 @@ namespace ReserveBlockWinWallet
                                     recAddressDropDownList.Items.Add(addr);
                                 });
 
-                                var bal = accounts.Sum(x => x.Balance).ToString();
+                                var bal = accounts.Sum(x => x.Balance).ToString("0.00000000");
                                 dashMainBalLabel.Text = bal + " RBX";
 
                             }
@@ -345,6 +347,56 @@ namespace ReserveBlockWinWallet
         }
         #endregion
 
+        #region Get the Wallet Addresses
+        public async Task DashPrintWalletTransactions()
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string endpoint = nodeURL + "/api/V1/GetAllTransactions";
+                    using (var Response = await client.GetAsync(endpoint))
+                    {
+                        if (Response.StatusCode == System.Net.HttpStatusCode.OK)
+                        {
+                            string data = await Response.Content.ReadAsStringAsync();
+
+                            if (data != "No Accounts")
+                            {
+                                dashboardMainBox.Clear();
+                                var transactions = JsonConvert.DeserializeObject<List<Transaction>>(data);
+                                if(transactions != null)
+                                {
+                                    transactions.OrderByDescending(x => x.Height).Take(20).ToList().ForEach(x => {
+                                        dashRecentTxBox.Text += "From: " + x.FromAddress + Environment.NewLine 
+                                        + "To: " + x.ToAddress + Environment.NewLine 
+                                        + "Amount: " +  x.Amount.ToString("0.00") + Environment.NewLine 
+                                        + "Height: " + x.Height.ToString();
+                                        dashRecentTxBox.AppendText(Environment.NewLine);
+                                        dashRecentTxBox.AppendText(Environment.NewLine);
+                                    });
+
+                                    
+                                    transactionsGrid.DataSource = transactions.OrderByDescending(x => x.Height).ToList();
+                                }
+                                
+
+                            }
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        #endregion
+
         private async void txSendAddressDropDown_SelectedIndexChanged(string item)
         {
             var account = await GetWalletInfo(item);
@@ -497,6 +549,15 @@ namespace ReserveBlockWinWallet
         private void dashClearMainBtn_Click(object sender, EventArgs e)
         {
             dashboardMainBox.Clear();
+        }
+
+        private void chatButtonRight1_Click(object sender, EventArgs e)
+        {
+            if(recAddressLabel.Text != "--" && recAddressLabel.Text.StartsWith("R"))
+            {
+                Clipboard.SetText(recAddressLabel.Text);
+                MessageBox.Show("Address copied to clipboard.");
+            }
         }
     }
 }
