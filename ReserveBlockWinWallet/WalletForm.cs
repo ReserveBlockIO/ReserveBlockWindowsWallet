@@ -35,14 +35,21 @@ namespace ReserveBlockWinWallet
             //Look for new blocks
             walletStartTimeDate.Text = DateTime.Now.ToString();
 
-            ProcessStartInfo start =
-            new ProcessStartInfo();
-            start.FileName = Directory.GetCurrentDirectory() + @"\RBXCore\ReserveBlockCore.exe";
-            start.WindowStyle = ProcessWindowStyle.Hidden; //Hides GUI
-            start.CreateNoWindow = true; //Hides console
+            try
+            {
+                ProcessStartInfo start = new ProcessStartInfo();
+                start.FileName = Directory.GetCurrentDirectory() + @"\RBXCore\ReserveBlockCore.exe";
+                start.WindowStyle = ProcessWindowStyle.Hidden; //Hides GUI
+                start.CreateNoWindow = true; //Hides console
 
-            proc.StartInfo = start;
-            proc.Start();
+                proc.StartInfo = start;
+                proc.Start();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Could not find the RBX Core CLI. Please read the readme.txt in RBXCore folder");
+            }
+            
 
             nodeURL = "https://localhost:7777";
 
