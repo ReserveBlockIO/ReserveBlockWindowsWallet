@@ -41,9 +41,11 @@ namespace ReserveBlockWinWallet
                 start.FileName = Directory.GetCurrentDirectory() + @"\RBXCore\ReserveBlockCore.exe";
                 start.WindowStyle = ProcessWindowStyle.Hidden; //Hides GUI
                 start.CreateNoWindow = true; //Hides console
+                start.Arguments = "enableapi";
 
                 proc.StartInfo = start;
                 proc.Start();
+
             }
             catch(Exception ex)
             {
