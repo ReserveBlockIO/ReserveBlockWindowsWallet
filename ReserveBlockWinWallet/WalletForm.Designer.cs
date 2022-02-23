@@ -95,6 +95,7 @@
             this.skyLabel12 = new ReaLTaiizor.Controls.SkyLabel();
             this.txSendAddressDropDown = new ReaLTaiizor.Controls.CrownDropDownList();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.recImpPrvKey = new ReaLTaiizor.Controls.MaterialButton();
             this.chatButtonRight1 = new ReaLTaiizor.Controls.ChatButtonRight();
             this.recGetNewAddressBtn = new ReaLTaiizor.Controls.LostAcceptButton();
             this.separator1 = new ReaLTaiizor.Controls.Separator();
@@ -108,6 +109,18 @@
             this.recAddressDropDownList = new ReaLTaiizor.Controls.CrownDropDownList();
             this.skyLabel19 = new ReaLTaiizor.Controls.SkyLabel();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.transactionsGrid = new ReaLTaiizor.Controls.PoisonDataGridView();
+            this.hashDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toAddressDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fromAddressDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.amountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nonceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.feeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.timestampDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nFTDataDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.signatureDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.heightDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.transactionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.lostCancelButton2 = new ReaLTaiizor.Controls.LostCancelButton();
             this.startValiBtn = new ReaLTaiizor.Controls.LostAcceptButton();
@@ -133,18 +146,6 @@
             this.skyLabel34 = new ReaLTaiizor.Controls.SkyLabel();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.lostPanel2 = new ReaLTaiizor.Controls.LostPanel();
-            this.transactionsGrid = new ReaLTaiizor.Controls.PoisonDataGridView();
-            this.transactionBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.hashDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.toAddressDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fromAddressDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.amountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nonceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.feeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.timestampDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nFTDataDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.signatureDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.heightDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lostPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
@@ -164,9 +165,9 @@
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
-            this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.transactionsGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.transactionBindingSource)).BeginInit();
+            this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
             // lostPanel1
@@ -953,6 +954,7 @@
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.tabPage3.Controls.Add(this.recImpPrvKey);
             this.tabPage3.Controls.Add(this.chatButtonRight1);
             this.tabPage3.Controls.Add(this.recGetNewAddressBtn);
             this.tabPage3.Controls.Add(this.separator1);
@@ -970,6 +972,27 @@
             this.tabPage3.Size = new System.Drawing.Size(506, 494);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
+            // 
+            // recImpPrvKey
+            // 
+            this.recImpPrvKey.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.recImpPrvKey.Depth = 0;
+            this.recImpPrvKey.DrawShadows = true;
+            this.recImpPrvKey.Font = new System.Drawing.Font("Century Gothic", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.recImpPrvKey.HighEmphasis = true;
+            this.recImpPrvKey.Icon = null;
+            this.recImpPrvKey.Location = new System.Drawing.Point(350, 198);
+            this.recImpPrvKey.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.recImpPrvKey.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            this.recImpPrvKey.Name = "recImpPrvKey";
+            this.recImpPrvKey.Size = new System.Drawing.Size(144, 36);
+            this.recImpPrvKey.TabIndex = 29;
+            this.recImpPrvKey.Text = "Import Private Key";
+            this.recImpPrvKey.TextState = ReaLTaiizor.Controls.MaterialButton.TextStateType.Normal;
+            this.recImpPrvKey.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.recImpPrvKey.UseAccentColor = false;
+            this.recImpPrvKey.UseVisualStyleBackColor = true;
+            this.recImpPrvKey.Click += new System.EventHandler(this.recImpPrvKey_Click);
             // 
             // chatButtonRight1
             // 
@@ -997,13 +1020,13 @@
             // 
             this.recGetNewAddressBtn.BackColor = System.Drawing.Color.SeaGreen;
             this.recGetNewAddressBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.recGetNewAddressBtn.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.recGetNewAddressBtn.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.recGetNewAddressBtn.ForeColor = System.Drawing.Color.White;
             this.recGetNewAddressBtn.HoverColor = System.Drawing.Color.ForestGreen;
             this.recGetNewAddressBtn.Image = null;
             this.recGetNewAddressBtn.Location = new System.Drawing.Point(350, 150);
             this.recGetNewAddressBtn.Name = "recGetNewAddressBtn";
-            this.recGetNewAddressBtn.Size = new System.Drawing.Size(136, 39);
+            this.recGetNewAddressBtn.Size = new System.Drawing.Size(144, 39);
             this.recGetNewAddressBtn.TabIndex = 26;
             this.recGetNewAddressBtn.Text = "+ New Address";
             this.recGetNewAddressBtn.Click += new System.EventHandler(this.recGetNewAddressBtn_Click);
@@ -1122,6 +1145,141 @@
             this.tabPage4.Size = new System.Drawing.Size(506, 494);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "tabPage4";
+            // 
+            // transactionsGrid
+            // 
+            this.transactionsGrid.AllowUserToAddRows = false;
+            this.transactionsGrid.AllowUserToDeleteRows = false;
+            this.transactionsGrid.AllowUserToOrderColumns = true;
+            this.transactionsGrid.AllowUserToResizeRows = false;
+            this.transactionsGrid.AutoGenerateColumns = false;
+            this.transactionsGrid.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.transactionsGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.transactionsGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.transactionsGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.transactionsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.transactionsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.transactionsGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.hashDataGridViewTextBoxColumn,
+            this.toAddressDataGridViewTextBoxColumn,
+            this.fromAddressDataGridViewTextBoxColumn,
+            this.amountDataGridViewTextBoxColumn,
+            this.nonceDataGridViewTextBoxColumn,
+            this.feeDataGridViewTextBoxColumn,
+            this.timestampDataGridViewTextBoxColumn,
+            this.nFTDataDataGridViewTextBoxColumn,
+            this.signatureDataGridViewTextBoxColumn,
+            this.heightDataGridViewTextBoxColumn});
+            this.transactionsGrid.DataSource = this.transactionBindingSource;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.transactionsGrid.DefaultCellStyle = dataGridViewCellStyle2;
+            this.transactionsGrid.EnableHeadersVisualStyles = false;
+            this.transactionsGrid.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.transactionsGrid.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.transactionsGrid.Location = new System.Drawing.Point(3, 23);
+            this.transactionsGrid.Name = "transactionsGrid";
+            this.transactionsGrid.ReadOnly = true;
+            this.transactionsGrid.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.transactionsGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.transactionsGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.transactionsGrid.RowTemplate.Height = 25;
+            this.transactionsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.transactionsGrid.Size = new System.Drawing.Size(489, 468);
+            this.transactionsGrid.TabIndex = 0;
+            // 
+            // hashDataGridViewTextBoxColumn
+            // 
+            this.hashDataGridViewTextBoxColumn.DataPropertyName = "Hash";
+            this.hashDataGridViewTextBoxColumn.HeaderText = "Hash";
+            this.hashDataGridViewTextBoxColumn.Name = "hashDataGridViewTextBoxColumn";
+            this.hashDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // toAddressDataGridViewTextBoxColumn
+            // 
+            this.toAddressDataGridViewTextBoxColumn.DataPropertyName = "ToAddress";
+            this.toAddressDataGridViewTextBoxColumn.HeaderText = "ToAddress";
+            this.toAddressDataGridViewTextBoxColumn.Name = "toAddressDataGridViewTextBoxColumn";
+            this.toAddressDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // fromAddressDataGridViewTextBoxColumn
+            // 
+            this.fromAddressDataGridViewTextBoxColumn.DataPropertyName = "FromAddress";
+            this.fromAddressDataGridViewTextBoxColumn.HeaderText = "FromAddress";
+            this.fromAddressDataGridViewTextBoxColumn.Name = "fromAddressDataGridViewTextBoxColumn";
+            this.fromAddressDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // amountDataGridViewTextBoxColumn
+            // 
+            this.amountDataGridViewTextBoxColumn.DataPropertyName = "Amount";
+            this.amountDataGridViewTextBoxColumn.HeaderText = "Amount";
+            this.amountDataGridViewTextBoxColumn.Name = "amountDataGridViewTextBoxColumn";
+            this.amountDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // nonceDataGridViewTextBoxColumn
+            // 
+            this.nonceDataGridViewTextBoxColumn.DataPropertyName = "Nonce";
+            this.nonceDataGridViewTextBoxColumn.HeaderText = "Nonce";
+            this.nonceDataGridViewTextBoxColumn.Name = "nonceDataGridViewTextBoxColumn";
+            this.nonceDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // feeDataGridViewTextBoxColumn
+            // 
+            this.feeDataGridViewTextBoxColumn.DataPropertyName = "Fee";
+            this.feeDataGridViewTextBoxColumn.HeaderText = "Fee";
+            this.feeDataGridViewTextBoxColumn.Name = "feeDataGridViewTextBoxColumn";
+            this.feeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // timestampDataGridViewTextBoxColumn
+            // 
+            this.timestampDataGridViewTextBoxColumn.DataPropertyName = "Timestamp";
+            this.timestampDataGridViewTextBoxColumn.HeaderText = "Timestamp";
+            this.timestampDataGridViewTextBoxColumn.Name = "timestampDataGridViewTextBoxColumn";
+            this.timestampDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // nFTDataDataGridViewTextBoxColumn
+            // 
+            this.nFTDataDataGridViewTextBoxColumn.DataPropertyName = "NFTData";
+            this.nFTDataDataGridViewTextBoxColumn.HeaderText = "NFTData";
+            this.nFTDataDataGridViewTextBoxColumn.Name = "nFTDataDataGridViewTextBoxColumn";
+            this.nFTDataDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // signatureDataGridViewTextBoxColumn
+            // 
+            this.signatureDataGridViewTextBoxColumn.DataPropertyName = "Signature";
+            this.signatureDataGridViewTextBoxColumn.HeaderText = "Signature";
+            this.signatureDataGridViewTextBoxColumn.Name = "signatureDataGridViewTextBoxColumn";
+            this.signatureDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // heightDataGridViewTextBoxColumn
+            // 
+            this.heightDataGridViewTextBoxColumn.DataPropertyName = "Height";
+            this.heightDataGridViewTextBoxColumn.HeaderText = "Height";
+            this.heightDataGridViewTextBoxColumn.Name = "heightDataGridViewTextBoxColumn";
+            this.heightDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // transactionBindingSource
+            // 
+            this.transactionBindingSource.DataSource = typeof(ReserveBlockWinWallet.Models.Transaction);
             // 
             // tabPage5
             // 
@@ -1407,141 +1565,6 @@
             this.lostPanel2.Size = new System.Drawing.Size(508, 20);
             this.lostPanel2.TabIndex = 35;
             // 
-            // transactionsGrid
-            // 
-            this.transactionsGrid.AllowUserToAddRows = false;
-            this.transactionsGrid.AllowUserToDeleteRows = false;
-            this.transactionsGrid.AllowUserToOrderColumns = true;
-            this.transactionsGrid.AllowUserToResizeRows = false;
-            this.transactionsGrid.AutoGenerateColumns = false;
-            this.transactionsGrid.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.transactionsGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.transactionsGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            this.transactionsGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.transactionsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.transactionsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.transactionsGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.hashDataGridViewTextBoxColumn,
-            this.toAddressDataGridViewTextBoxColumn,
-            this.fromAddressDataGridViewTextBoxColumn,
-            this.amountDataGridViewTextBoxColumn,
-            this.nonceDataGridViewTextBoxColumn,
-            this.feeDataGridViewTextBoxColumn,
-            this.timestampDataGridViewTextBoxColumn,
-            this.nFTDataDataGridViewTextBoxColumn,
-            this.signatureDataGridViewTextBoxColumn,
-            this.heightDataGridViewTextBoxColumn});
-            this.transactionsGrid.DataSource = this.transactionBindingSource;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.transactionsGrid.DefaultCellStyle = dataGridViewCellStyle2;
-            this.transactionsGrid.EnableHeadersVisualStyles = false;
-            this.transactionsGrid.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.transactionsGrid.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.transactionsGrid.Location = new System.Drawing.Point(3, 23);
-            this.transactionsGrid.Name = "transactionsGrid";
-            this.transactionsGrid.ReadOnly = true;
-            this.transactionsGrid.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.transactionsGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.transactionsGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.transactionsGrid.RowTemplate.Height = 25;
-            this.transactionsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.transactionsGrid.Size = new System.Drawing.Size(489, 468);
-            this.transactionsGrid.TabIndex = 0;
-            // 
-            // transactionBindingSource
-            // 
-            this.transactionBindingSource.DataSource = typeof(ReserveBlockWinWallet.Models.Transaction);
-            // 
-            // hashDataGridViewTextBoxColumn
-            // 
-            this.hashDataGridViewTextBoxColumn.DataPropertyName = "Hash";
-            this.hashDataGridViewTextBoxColumn.HeaderText = "Hash";
-            this.hashDataGridViewTextBoxColumn.Name = "hashDataGridViewTextBoxColumn";
-            this.hashDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // toAddressDataGridViewTextBoxColumn
-            // 
-            this.toAddressDataGridViewTextBoxColumn.DataPropertyName = "ToAddress";
-            this.toAddressDataGridViewTextBoxColumn.HeaderText = "ToAddress";
-            this.toAddressDataGridViewTextBoxColumn.Name = "toAddressDataGridViewTextBoxColumn";
-            this.toAddressDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // fromAddressDataGridViewTextBoxColumn
-            // 
-            this.fromAddressDataGridViewTextBoxColumn.DataPropertyName = "FromAddress";
-            this.fromAddressDataGridViewTextBoxColumn.HeaderText = "FromAddress";
-            this.fromAddressDataGridViewTextBoxColumn.Name = "fromAddressDataGridViewTextBoxColumn";
-            this.fromAddressDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // amountDataGridViewTextBoxColumn
-            // 
-            this.amountDataGridViewTextBoxColumn.DataPropertyName = "Amount";
-            this.amountDataGridViewTextBoxColumn.HeaderText = "Amount";
-            this.amountDataGridViewTextBoxColumn.Name = "amountDataGridViewTextBoxColumn";
-            this.amountDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // nonceDataGridViewTextBoxColumn
-            // 
-            this.nonceDataGridViewTextBoxColumn.DataPropertyName = "Nonce";
-            this.nonceDataGridViewTextBoxColumn.HeaderText = "Nonce";
-            this.nonceDataGridViewTextBoxColumn.Name = "nonceDataGridViewTextBoxColumn";
-            this.nonceDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // feeDataGridViewTextBoxColumn
-            // 
-            this.feeDataGridViewTextBoxColumn.DataPropertyName = "Fee";
-            this.feeDataGridViewTextBoxColumn.HeaderText = "Fee";
-            this.feeDataGridViewTextBoxColumn.Name = "feeDataGridViewTextBoxColumn";
-            this.feeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // timestampDataGridViewTextBoxColumn
-            // 
-            this.timestampDataGridViewTextBoxColumn.DataPropertyName = "Timestamp";
-            this.timestampDataGridViewTextBoxColumn.HeaderText = "Timestamp";
-            this.timestampDataGridViewTextBoxColumn.Name = "timestampDataGridViewTextBoxColumn";
-            this.timestampDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // nFTDataDataGridViewTextBoxColumn
-            // 
-            this.nFTDataDataGridViewTextBoxColumn.DataPropertyName = "NFTData";
-            this.nFTDataDataGridViewTextBoxColumn.HeaderText = "NFTData";
-            this.nFTDataDataGridViewTextBoxColumn.Name = "nFTDataDataGridViewTextBoxColumn";
-            this.nFTDataDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // signatureDataGridViewTextBoxColumn
-            // 
-            this.signatureDataGridViewTextBoxColumn.DataPropertyName = "Signature";
-            this.signatureDataGridViewTextBoxColumn.HeaderText = "Signature";
-            this.signatureDataGridViewTextBoxColumn.Name = "signatureDataGridViewTextBoxColumn";
-            this.signatureDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // heightDataGridViewTextBoxColumn
-            // 
-            this.heightDataGridViewTextBoxColumn.DataPropertyName = "Height";
-            this.heightDataGridViewTextBoxColumn.HeaderText = "Height";
-            this.heightDataGridViewTextBoxColumn.Name = "heightDataGridViewTextBoxColumn";
-            this.heightDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
             // WalletForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
@@ -1584,10 +1607,10 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
-            this.tabPage5.ResumeLayout(false);
-            this.tabPage5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.transactionsGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.transactionBindingSource)).EndInit();
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1706,5 +1729,6 @@
         private DataGridViewTextBoxColumn signatureDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn heightDataGridViewTextBoxColumn;
         private BindingSource transactionBindingSource;
+        private ReaLTaiizor.Controls.MaterialButton recImpPrvKey;
     }
 }

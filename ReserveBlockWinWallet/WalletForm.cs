@@ -22,9 +22,9 @@ namespace ReserveBlockWinWallet
         public  WalletForm()
         {
             InitializeComponent();
-            txSendAddressDropDown.SelectedItemChanged += delegate { txSendAddressDropDown_SelectedIndexChanged(txSendAddressDropDown.SelectedItem.Text); };
-            recAddressDropDownList.SelectedItemChanged += delegate { recAddressDropDownList_SelectedIndexChanged(recAddressDropDownList.SelectedItem.Text); };
-            valiDropDownList.SelectedItemChanged += delegate { txSendAddressDropDown_SelectedIndexChanged(valiDropDownList.SelectedItem.Text); };
+            txSendAddressDropDown.SelectedItemChanged += delegate { txSendAddressDropDown_SelectedIndexChanged(txSendAddressDropDown.SelectedItem != null ? txSendAddressDropDown.SelectedItem.Text : "empty"); };
+            recAddressDropDownList.SelectedItemChanged += delegate { recAddressDropDownList_SelectedIndexChanged(recAddressDropDownList.SelectedItem != null ? recAddressDropDownList.SelectedItem.Text : "empty"); };
+            valiDropDownList.SelectedItemChanged += delegate { txSendAddressDropDown_SelectedIndexChanged(valiDropDownList.SelectedItem != null ? valiDropDownList.SelectedItem.Text : "empty"); };
             this.FormClosing += WalletForm_FormClosing;
             walletInfo.AppendText("RBX Wallet Started on " + DateTime.Now.ToString());
             walletInfo.AppendText(Environment.NewLine);
@@ -34,6 +34,10 @@ namespace ReserveBlockWinWallet
             walletInfo.AppendText("Connected. Looking for new blocks.");
             //Look for new blocks
             walletStartTimeDate.Text = DateTime.Now.ToString();
+
+            System.Threading.Timer walletRefresh = new System.Threading.Timer(walletRefresh_Elapsed);
+            walletRefresh.Change(10000, 35000);
+
 
             try
             {
@@ -47,13 +51,14 @@ namespace ReserveBlockWinWallet
                 proc.Start();
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Could not find the RBX Core CLI. Please read the readme.txt in RBXCore folder");
             }
-            
+
 
             nodeURL = "http://localhost:8080";
+            //nodeURL = "https://localhost:7777";// testurl - not for production
 
             GetWalletOnline();
 
@@ -65,6 +70,49 @@ namespace ReserveBlockWinWallet
 
             DashPrintWalletTransactions();
 
+        }
+        delegate void SetTextCallback(Form form, Control ctrl, string text);
+
+        public static void SetText(Form form, Control ctrl, string text)
+        {
+            // InvokeRequired required compares the thread ID of the 
+            // calling thread to the thread ID of the creating thread. 
+            // If these threads are different, it returns true. 
+            if (ctrl.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(SetText);
+                
+                form.Invoke(d, new object[] { form, ctrl, text });
+            }
+            else
+            {
+                ctrl.Text = text;
+            }
+        }
+
+        public static void SetTextAppend(Form form, Control ctrl, string text)
+        {
+            // InvokeRequired required compares the thread ID of the 
+            // calling thread to the thread ID of the creating thread. 
+            // If these threads are different, it returns true. 
+            if (ctrl.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(SetTextAppend);
+
+                form.Invoke(d, new object[] { form, ctrl, text });
+            }
+            else
+            {
+                ctrl.Text += text;
+            }
+        }
+
+        private async void walletRefresh_Elapsed(object sender)
+        {
+            await SetWalletInfo();
+            await GetWalletValidatorAddresses();
+            await DashPrintWalletTransactions();
+            await UpdateBalance();
         }
 
         #region Wallet Get Walelt Online
@@ -129,8 +177,10 @@ namespace ReserveBlockWinWallet
                             var blockHeight = walInfo[0];
                             var peerCount = walInfo[1];
 
-                            peerCountLabel.Text = peerCount + " / 6";
-                            blockHeightLabel.Text = blockHeight;
+                            SetText(this, peerCountLabel, peerCount + " / 6");
+                            SetText(this, blockHeightLabel, blockHeight);
+                            //peerCountLabel.Text = peerCount + " / 6";
+                            //blockHeightLabel.Text = blockHeight;
 
 
                             
@@ -153,6 +203,44 @@ namespace ReserveBlockWinWallet
         }
         #endregion
 
+        #region Update balance
+        public async Task UpdateBalance()
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string endpoint = nodeURL + "/api/V1/GetAllAddresses";
+                    using (var Response = await client.GetAsync(endpoint))
+                    {
+                        if (Response.StatusCode == System.Net.HttpStatusCode.OK)
+                        {
+                            string data = await Response.Content.ReadAsStringAsync();
+
+                            if (data != "No Accounts")
+                            {
+                                var accounts = JsonConvert.DeserializeObject<List<Account>>(data);
+
+                                var bal = accounts.Sum(x => x.Balance).ToString("0.00000000");
+                                SetText(this, dashMainBalLabel, bal + " RBX");
+
+                            }
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        #endregion
+
         #region Get the Wallet Addresses
         public async Task GetWalletAddresses()
         {
@@ -173,13 +261,14 @@ namespace ReserveBlockWinWallet
                                 accounts.ForEach(x =>
                                 {
                                     var addr = new CrownDropDownItem(x.Address);
+                                    //SetText(this, blockHeightLabel, blockHeight);
                                     
                                     txSendAddressDropDown.Items.Add(addr);
                                     recAddressDropDownList.Items.Add(addr);
                                 });
 
                                 var bal = accounts.Sum(x => x.Balance).ToString("0.00000000");
-                                dashMainBalLabel.Text = bal + " RBX";
+                                SetText(this, dashMainBalLabel, bal + " RBX");
 
                             }
                         }
@@ -194,6 +283,7 @@ namespace ReserveBlockWinWallet
             {
 
             }
+
         }
         #endregion
 
@@ -216,6 +306,7 @@ namespace ReserveBlockWinWallet
                                 var accounts = JsonConvert.DeserializeObject<List<Account>>(data);
                                 accounts.ForEach(x =>
                                 {
+                                    valiDropDownList.Items.Clear();
                                     var addr = new CrownDropDownItem(x.Address);
                                     valiDropDownList.Items.Add(addr);
                                 });
@@ -349,7 +440,7 @@ namespace ReserveBlockWinWallet
         }
         #endregion
 
-        #region Get the Wallet Addresses
+        #region Get the Wallet Transactions
         public async Task DashPrintWalletTransactions()
         {
             try
@@ -365,17 +456,19 @@ namespace ReserveBlockWinWallet
 
                             if (data != "No Accounts")
                             {
-                                dashboardMainBox.Clear();
+                                //dashboardMainBox.Clear();
+                                SetText(this, dashRecentTxBox, " ");
+
                                 var transactions = JsonConvert.DeserializeObject<List<Transaction>>(data);
                                 if(transactions != null)
                                 {
                                     transactions.OrderByDescending(x => x.Height).Take(20).ToList().ForEach(x => {
-                                        dashRecentTxBox.Text += "From: " + x.FromAddress + Environment.NewLine 
-                                        + "To: " + x.ToAddress + Environment.NewLine 
-                                        + "Amount: " +  x.Amount.ToString("0.00") + Environment.NewLine 
-                                        + "Height: " + x.Height.ToString();
-                                        dashRecentTxBox.AppendText(Environment.NewLine);
-                                        dashRecentTxBox.AppendText(Environment.NewLine);
+                                        var row = "From: " + x.FromAddress + Environment.NewLine
+                                        + "To: " + x.ToAddress + Environment.NewLine
+                                        + "Amount: " + x.Amount.ToString("0.00") + Environment.NewLine
+                                        + "Height: " + x.Height.ToString() + Environment.NewLine + Environment.NewLine;
+                                        
+                                        SetTextAppend(this, dashRecentTxBox, row);
                                     });
 
                                     
@@ -399,46 +492,92 @@ namespace ReserveBlockWinWallet
         }
         #endregion
 
+        #region Import Private Key
+        public async Task<string> ImportPrivateKey(string privKey)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string endpoint = nodeURL + "/api/V1/ImportPrivateKey/" + privKey;
+                    using (var Response = await client.GetAsync(endpoint))
+                    {
+                        if (Response.StatusCode == System.Net.HttpStatusCode.OK)
+                        {
+                            string data = await Response.Content.ReadAsStringAsync();
+
+                            if (data != "NAC")
+                            {
+                                return data;
+                            }
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return "FAIL";
+        }
+        #endregion
+
+        #region Drop down on change events
+
         private async void txSendAddressDropDown_SelectedIndexChanged(string item)
         {
-            var account = await GetWalletInfo(item);
-
-            if(account != null)
+            if (item != "empty")
             {
-                txSendBalanceLabel.Text = account.Balance.ToString() + " RBX";
-            }
-            else
-            {
-                txSendBalanceLabel.Text = "0.00" + " RBX";
-            }
-            
+                var account = await GetWalletInfo(item);
 
-
+                if (account != null)
+                {
+                    SetText(this, txSendBalanceLabel, account.Balance.ToString() + " RBX");
+                }
+                else
+                {
+                    SetText(this, txSendBalanceLabel, "0.00" + " RBX");
+                }
+            }
         }
 
         private async void recAddressDropDownList_SelectedIndexChanged(string item)
         {
-            var account = await GetWalletInfo(item);
-
-            if (account != null)
+            if(item != "empty")
             {
-                recAddressLabel.Text = account.Address;
-                recBalance.Text = account.Balance.ToString() + " RBX";
-                recValiFlag.Text = account.IsValidating == true ? "Yes" : "No";
-            }
-            else
-            {
+                var account = await GetWalletInfo(item);
+
+                if (account != null)
+                {
+                    SetText(this, recAddressLabel, account.Address);
+                    SetText(this, recBalance, account.Balance.ToString() + " RBX");
+                    SetText(this, recValiFlag, account.IsValidating == true ? "Yes" : "No");
+                }
+                else
+                {
+
+                }
 
             }
-
-
-
         }
+
+        #endregion
+
+        #region Wallet Form Closing Event
         private void WalletForm_FormClosing(object? sender, FormClosingEventArgs e)
         {
-            //proc.Kill();
-            //proc.Dispose();
+            proc.Kill();
+            proc.Dispose();
         }
+
+        #endregion
+
+        #region Move side panel options
 
         private void MoveSidePanel(Control c)
         {
@@ -481,7 +620,31 @@ namespace ReserveBlockWinWallet
             foreverTabPage1.SelectedIndex = 5;
         }
 
+        #endregion
 
+        #region Show dialong options
+        public static string ShowDialog(string text, string caption)
+        {
+            Form prompt = new Form()
+            {
+                Width = 500,
+                Height = 150,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                Text = caption,
+                StartPosition = FormStartPosition.CenterScreen
+            };
+            Label textLabel = new Label() { Left = 50, Top = 20, Text = text };
+            TextBox textBox = new TextBox() { Left = 50, Top = 50, Width = 400 };
+            Button confirmation = new Button() { Text = "Ok", Left = 350, Width = 100, Top = 80, DialogResult = DialogResult.OK };
+            confirmation.Click += (sender, e) => { prompt.Close(); };
+            prompt.Controls.Add(textBox);
+            prompt.Controls.Add(confirmation);
+            prompt.Controls.Add(textLabel);
+            prompt.AcceptButton = confirmation;
+
+            return prompt.ShowDialog() == DialogResult.OK ? textBox.Text : "";
+        }
+        #endregion
 
         private void lostAcceptButton5_Click(object sender, EventArgs e)
         {
@@ -561,5 +724,33 @@ namespace ReserveBlockWinWallet
                 MessageBox.Show("Address copied to clipboard.");
             }
         }
+
+        private async void recImpPrvKey_Click(object sender, EventArgs e)
+        {
+            string promptValue = ShowDialog("Insert Private Key", "Import Private Key");
+
+            if(promptValue != "")
+            {
+                var data = await ImportPrivateKey(promptValue);
+
+                if (data != "FAIL")
+                {
+                    var account = JsonConvert.DeserializeObject<Account>(data);
+
+                    var message = "Account: " + account.Address + " imported.";
+
+                    MessageBox.Show(message);
+
+                    await SetWalletInfo();
+                    await GetWalletValidatorAddresses();
+                    await UpdateBalance();
+
+                    var addr = new CrownDropDownItem(account.Address);
+                    txSendAddressDropDown.Items.Add(addr);
+                    recAddressDropDownList.Items.Add(addr);
+                }
+            }
+        }
+
     }
 }
