@@ -41,14 +41,14 @@ namespace ReserveBlockWinWallet
 
             try
             {
-                //ProcessStartInfo start = new ProcessStartInfo();
-                //start.FileName = Directory.GetCurrentDirectory() + @"\RBXCore\ReserveBlockCore.exe";
-                //start.WindowStyle = ProcessWindowStyle.Hidden; //Hides GUI
-                //start.CreateNoWindow = true; //Hides console
-                //start.Arguments = "enableapi";
+                ProcessStartInfo start = new ProcessStartInfo();
+                start.FileName = Directory.GetCurrentDirectory() + @"\RBXCore\ReserveBlockCore.exe";
+                start.WindowStyle = ProcessWindowStyle.Hidden; //Hides GUI
+                start.CreateNoWindow = true; //Hides console
+                start.Arguments = "enableapi";
 
-                //proc.StartInfo = start;
-                //proc.Start();
+                proc.StartInfo = start;
+                proc.Start();
 
             }
             catch (Exception ex)
@@ -659,8 +659,8 @@ namespace ReserveBlockWinWallet
         #region Wallet Form Closing Event
         private void WalletForm_FormClosing(object? sender, FormClosingEventArgs e)
         {
-            //proc.Kill();
-            //proc.Dispose();
+            proc.Kill();
+            proc.Dispose();
         }
 
         #endregion
