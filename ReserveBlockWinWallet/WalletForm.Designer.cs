@@ -87,9 +87,9 @@
             this.lostAcceptButton5 = new ReaLTaiizor.Controls.LostAcceptButton();
             this.lostCancelButton1 = new ReaLTaiizor.Controls.LostCancelButton();
             this.skyLabel16 = new ReaLTaiizor.Controls.SkyLabel();
-            this.crownTextBox2 = new ReaLTaiizor.Controls.CrownTextBox();
+            this.sendToTextBox = new ReaLTaiizor.Controls.CrownTextBox();
             this.skyLabel15 = new ReaLTaiizor.Controls.SkyLabel();
-            this.crownTextBox1 = new ReaLTaiizor.Controls.CrownTextBox();
+            this.amountSendTextBox = new ReaLTaiizor.Controls.CrownTextBox();
             this.txSendBalanceLabel = new ReaLTaiizor.Controls.SkyLabel();
             this.skyLabel13 = new ReaLTaiizor.Controls.SkyLabel();
             this.skyLabel12 = new ReaLTaiizor.Controls.SkyLabel();
@@ -803,9 +803,9 @@
             this.tabPage2.Controls.Add(this.lostAcceptButton5);
             this.tabPage2.Controls.Add(this.lostCancelButton1);
             this.tabPage2.Controls.Add(this.skyLabel16);
-            this.tabPage2.Controls.Add(this.crownTextBox2);
+            this.tabPage2.Controls.Add(this.sendToTextBox);
             this.tabPage2.Controls.Add(this.skyLabel15);
-            this.tabPage2.Controls.Add(this.crownTextBox1);
+            this.tabPage2.Controls.Add(this.amountSendTextBox);
             this.tabPage2.Controls.Add(this.txSendBalanceLabel);
             this.tabPage2.Controls.Add(this.skyLabel13);
             this.tabPage2.Controls.Add(this.skyLabel12);
@@ -879,15 +879,15 @@
             this.skyLabel16.TabIndex = 21;
             this.skyLabel16.Text = "Send To";
             // 
-            // crownTextBox2
+            // sendToTextBox
             // 
-            this.crownTextBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
-            this.crownTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.crownTextBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.crownTextBox2.Location = new System.Drawing.Point(22, 240);
-            this.crownTextBox2.Name = "crownTextBox2";
-            this.crownTextBox2.Size = new System.Drawing.Size(333, 25);
-            this.crownTextBox2.TabIndex = 20;
+            this.sendToTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
+            this.sendToTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.sendToTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.sendToTextBox.Location = new System.Drawing.Point(22, 240);
+            this.sendToTextBox.Name = "sendToTextBox";
+            this.sendToTextBox.Size = new System.Drawing.Size(333, 25);
+            this.sendToTextBox.TabIndex = 20;
             // 
             // skyLabel15
             // 
@@ -900,15 +900,15 @@
             this.skyLabel15.TabIndex = 19;
             this.skyLabel15.Text = "Amount to Send";
             // 
-            // crownTextBox1
+            // amountSendTextBox
             // 
-            this.crownTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
-            this.crownTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.crownTextBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.crownTextBox1.Location = new System.Drawing.Point(22, 170);
-            this.crownTextBox1.Name = "crownTextBox1";
-            this.crownTextBox1.Size = new System.Drawing.Size(158, 25);
-            this.crownTextBox1.TabIndex = 18;
+            this.amountSendTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
+            this.amountSendTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.amountSendTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.amountSendTextBox.Location = new System.Drawing.Point(22, 170);
+            this.amountSendTextBox.Name = "amountSendTextBox";
+            this.amountSendTextBox.Size = new System.Drawing.Size(158, 25);
+            this.amountSendTextBox.TabIndex = 18;
             // 
             // txSendBalanceLabel
             // 
@@ -1567,8 +1567,8 @@
             // 
             // WalletForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(239)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(981, 550);
@@ -1674,9 +1674,9 @@
         private ReaLTaiizor.Controls.LostAcceptButton lostAcceptButton5;
         private ReaLTaiizor.Controls.LostCancelButton lostCancelButton1;
         private ReaLTaiizor.Controls.SkyLabel skyLabel16;
-        private ReaLTaiizor.Controls.CrownTextBox crownTextBox2;
+        private ReaLTaiizor.Controls.CrownTextBox sendToTextBox;
         private ReaLTaiizor.Controls.SkyLabel skyLabel15;
-        private ReaLTaiizor.Controls.CrownTextBox crownTextBox1;
+        private ReaLTaiizor.Controls.CrownTextBox amountSendTextBox;
         private ReaLTaiizor.Controls.SkyLabel txSendBalanceLabel;
         private ReaLTaiizor.Controls.SkyLabel skyLabel13;
         private ReaLTaiizor.Controls.SkyLabel skyLabel12;

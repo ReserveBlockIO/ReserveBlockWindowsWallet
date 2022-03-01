@@ -24,7 +24,7 @@ namespace ReserveBlockWinWallet
             InitializeComponent();
             txSendAddressDropDown.SelectedItemChanged += delegate { txSendAddressDropDown_SelectedIndexChanged(txSendAddressDropDown.SelectedItem != null ? txSendAddressDropDown.SelectedItem.Text : "empty"); };
             recAddressDropDownList.SelectedItemChanged += delegate { recAddressDropDownList_SelectedIndexChanged(recAddressDropDownList.SelectedItem != null ? recAddressDropDownList.SelectedItem.Text : "empty"); };
-            valiDropDownList.SelectedItemChanged += delegate { txSendAddressDropDown_SelectedIndexChanged(valiDropDownList.SelectedItem != null ? valiDropDownList.SelectedItem.Text : "empty"); };
+            valiDropDownList.SelectedItemChanged += delegate { valiAddressDropDown_SelectedIndexChanged(valiDropDownList.SelectedItem != null ? valiDropDownList.SelectedItem.Text : "empty"); };
             this.FormClosing += WalletForm_FormClosing;
             walletInfo.AppendText("RBX Wallet Started on " + DateTime.Now.ToString());
             walletInfo.AppendText(Environment.NewLine);
@@ -41,14 +41,14 @@ namespace ReserveBlockWinWallet
 
             try
             {
-                ProcessStartInfo start = new ProcessStartInfo();
-                start.FileName = Directory.GetCurrentDirectory() + @"\RBXCore\ReserveBlockCore.exe";
-                start.WindowStyle = ProcessWindowStyle.Hidden; //Hides GUI
-                start.CreateNoWindow = true; //Hides console
-                start.Arguments = "enableapi";
+                //ProcessStartInfo start = new ProcessStartInfo();
+                //start.FileName = Directory.GetCurrentDirectory() + @"\RBXCore\ReserveBlockCore.exe";
+                //start.WindowStyle = ProcessWindowStyle.Hidden; //Hides GUI
+                //start.CreateNoWindow = true; //Hides console
+                //start.Arguments = "enableapi";
 
-                proc.StartInfo = start;
-                proc.Start();
+                //proc.StartInfo = start;
+                //proc.Start();
 
             }
             catch (Exception ex)
@@ -57,8 +57,8 @@ namespace ReserveBlockWinWallet
             }
 
 
-            nodeURL = "http://localhost:8080";
-            //nodeURL = "https://localhost:7777";// testurl - not for production
+            //nodeURL = "http://localhost:8080";
+            nodeURL = "https://localhost:7777";// testurl - not for production
 
             GetWalletOnline();
 
@@ -527,6 +527,72 @@ namespace ReserveBlockWinWallet
         }
         #endregion
 
+        #region Send TX Out
+        public async Task<string> SendTxOut(string fromAddr, string toAddr, string amount)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string endpoint = nodeURL + "/api/V1/SendTransaction/" + fromAddr + "/" + toAddr + "/" + amount;
+                    using (var Response = await client.GetAsync(endpoint))
+                    {
+                        if (Response.StatusCode == System.Net.HttpStatusCode.OK)
+                        {
+                            string data = await Response.Content.ReadAsStringAsync();
+
+                            return data;
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return "FAIL";
+        }
+
+        #endregion
+
+        #region Start Validating
+        public async Task<string> StartValidating(string addr, string uname)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string endpoint = nodeURL + "/api/V1/StartValidating/" + addr + "/" + uname;
+                    using (var Response = await client.GetAsync(endpoint))
+                    {
+                        if (Response.StatusCode == System.Net.HttpStatusCode.OK)
+                        {
+                            string data = await Response.Content.ReadAsStringAsync();
+
+                            return data;
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return "FAIL";
+        }
+
+        #endregion
+
         #region Drop down on change events
 
         private async void txSendAddressDropDown_SelectedIndexChanged(string item)
@@ -566,13 +632,35 @@ namespace ReserveBlockWinWallet
             }
         }
 
+        private async void valiAddressDropDown_SelectedIndexChanged(string item)
+        {
+            if (item != "empty")
+            {
+                var account = await GetWalletInfo(item);
+
+                if (account != null)
+                {
+                    SetText(this, skyLabel31, account.Address);
+                    SetText(this, skyLabel29, account.Balance.ToString() + " RBX");
+                    SetText(this, skyLabel27, account.IsValidating == true ? "Yes" : "No");
+                    SetText(this, skyLabel35, account.Balance > 1000M ? "Yes" : "No");
+                    
+                }
+                else
+                {
+
+                }
+
+            }
+        }
+
         #endregion
 
         #region Wallet Form Closing Event
         private void WalletForm_FormClosing(object? sender, FormClosingEventArgs e)
         {
-            proc.Kill();
-            proc.Dispose();
+            //proc.Kill();
+            //proc.Dispose();
         }
 
         #endregion
@@ -644,14 +732,45 @@ namespace ReserveBlockWinWallet
 
             return prompt.ShowDialog() == DialogResult.OK ? textBox.Text : "";
         }
+
+        public static string ShowDialogValidator(string text, string caption)
+        {
+            Form prompt = new Form()
+            {
+                Width = 500,
+                Height = 150,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                Text = caption,
+                StartPosition = FormStartPosition.CenterScreen
+            };
+            Label textLabel = new Label() { Left = 50, Top = 20, Text = text, Width = 300 };
+            TextBox textBox = new TextBox() { Left = 50, Top = 50, Width = 400 };
+            Button confirmation = new Button() { Text = "Ok", Left = 350, Width = 100, Top = 80, DialogResult = DialogResult.OK };
+            confirmation.Click += (sender, e) => { prompt.Close(); };
+            prompt.Controls.Add(textBox);
+            prompt.Controls.Add(confirmation);
+            prompt.Controls.Add(textLabel);
+            prompt.AcceptButton = confirmation;
+
+            return prompt.ShowDialog() == DialogResult.OK ? textBox.Text : "";
+        }
         #endregion
 
-        private void lostAcceptButton5_Click(object sender, EventArgs e)
+        private async void lostAcceptButton5_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Are you sure you want to send funds to: ", "Are you sure you want to send funds?", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to send funds?", "Are you sure you want to send funds?", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
                 //do something
+                var txFrom = txSendAddressDropDown.SelectedItem.Text;
+                var txTo = sendToTextBox.Text;
+                var amount = amountSendTextBox.Text;
+
+                if (txFrom != "" && txTo != "" && amount != "")
+                {
+                    var result = await SendTxOut(txFrom, txTo, amount);
+                    MessageBox.Show(result);
+                }
             }
             else if (dialogResult == DialogResult.No)
             {
@@ -694,16 +813,42 @@ namespace ReserveBlockWinWallet
             recAddressDropDownList.Items.Add(addr);
         }
 
-        private void startValiBtn_Click(object sender, EventArgs e)
+        private async void startValiBtn_Click(object sender, EventArgs e)
         {
             var post = new StringBuilder();
+            if(valiDropDownList.SelectedItem == null)
+            {
+                MessageBox.Show("You must select an address!");
+            }
+            else
+            {
+                var addr = valiDropDownList.SelectedItem.Text;
 
-            post.AppendLine("The Testnet will allow new validators starting on 27 February 2022.");
-            post.Append(Environment.NewLine);
-            post.AppendLine("If you have any questions please reach out to us on Discord or through GitHub.");
-            post.Append(Environment.NewLine);
+                if (addr != "")
+                {
+                    string promptValue = ShowDialogValidator("Choose a Unique Name for your Masternode.", "Name your Masternode!");
 
-            MessageBox.Show(post.ToString());
+                    if (promptValue != "")
+                    {
+                        DialogResult dialogResult = MessageBox.Show("Are you sure you want to activate masternode?", "Are you sure you?", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            //do something
+                            var result = await StartValidating(addr, promptValue);
+                            MessageBox.Show(result);
+
+                        }
+                        else if (dialogResult == DialogResult.No)
+                        {
+                            //do something else
+                        }
+                    }
+
+
+                }
+                MessageBox.Show(post.ToString());
+            }
+            
         }
 
         private async void dashPrintAllAddrBtn_Click(object sender, EventArgs e)
