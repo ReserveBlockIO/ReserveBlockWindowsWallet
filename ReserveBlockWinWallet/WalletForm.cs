@@ -57,8 +57,8 @@ namespace ReserveBlockWinWallet
             }
 
 
-            //nodeURL = "http://localhost:8080";
-            nodeURL = "https://localhost:7777";// testurl - not for production
+            nodeURL = "http://localhost:8080";
+            //nodeURL = "https://localhost:7777";// testurl - not for production
 
             GetWalletOnline();
 
