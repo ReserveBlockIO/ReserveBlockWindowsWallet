@@ -131,7 +131,7 @@
             this.separator5 = new ReaLTaiizor.Controls.Separator();
             this.separator4 = new ReaLTaiizor.Controls.Separator();
             this.separator3 = new ReaLTaiizor.Controls.Separator();
-            this.skyLabel38 = new ReaLTaiizor.Controls.SkyLabel();
+            this.valiNameLabel = new ReaLTaiizor.Controls.SkyLabel();
             this.skyLabel37 = new ReaLTaiizor.Controls.SkyLabel();
             this.skyLabel35 = new ReaLTaiizor.Controls.SkyLabel();
             this.skyLabel36 = new ReaLTaiizor.Controls.SkyLabel();
@@ -1293,7 +1293,7 @@
             this.tabPage5.Controls.Add(this.separator5);
             this.tabPage5.Controls.Add(this.separator4);
             this.tabPage5.Controls.Add(this.separator3);
-            this.tabPage5.Controls.Add(this.skyLabel38);
+            this.tabPage5.Controls.Add(this.valiNameLabel);
             this.tabPage5.Controls.Add(this.skyLabel37);
             this.tabPage5.Controls.Add(this.skyLabel35);
             this.tabPage5.Controls.Add(this.skyLabel36);
@@ -1404,16 +1404,16 @@
             this.separator3.TabIndex = 40;
             this.separator3.Text = "separator3";
             // 
-            // skyLabel38
+            // valiNameLabel
             // 
-            this.skyLabel38.AutoSize = true;
-            this.skyLabel38.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.skyLabel38.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(239)))), ((int)(((byte)(255)))));
-            this.skyLabel38.Location = new System.Drawing.Point(43, 394);
-            this.skyLabel38.Name = "skyLabel38";
-            this.skyLabel38.Size = new System.Drawing.Size(20, 17);
-            this.skyLabel38.TabIndex = 39;
-            this.skyLabel38.Text = "--";
+            this.valiNameLabel.AutoSize = true;
+            this.valiNameLabel.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.valiNameLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(239)))), ((int)(((byte)(255)))));
+            this.valiNameLabel.Location = new System.Drawing.Point(43, 394);
+            this.valiNameLabel.Name = "valiNameLabel";
+            this.valiNameLabel.Size = new System.Drawing.Size(20, 17);
+            this.valiNameLabel.TabIndex = 39;
+            this.valiNameLabel.Text = "--";
             // 
             // skyLabel37
             // 
@@ -1697,7 +1697,7 @@
         private ReaLTaiizor.Controls.Separator separator5;
         private ReaLTaiizor.Controls.Separator separator4;
         private ReaLTaiizor.Controls.Separator separator3;
-        private ReaLTaiizor.Controls.SkyLabel skyLabel38;
+        private ReaLTaiizor.Controls.SkyLabel valiNameLabel;
         private ReaLTaiizor.Controls.SkyLabel skyLabel37;
         private ReaLTaiizor.Controls.SkyLabel skyLabel35;
         private ReaLTaiizor.Controls.SkyLabel skyLabel36;
