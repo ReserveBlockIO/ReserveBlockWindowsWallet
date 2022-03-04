@@ -188,7 +188,7 @@ namespace ReserveBlockWinWallet
                             }
                             else
                             {
-                                IsWalletSyncing = false;
+                                ShowWalletSyncMessage = false;
                                 if(ShowWalletSyncMessage == true)
                                 {
                                     ShowWalletSyncMessage = false;
