@@ -21,7 +21,7 @@ namespace ReserveBlockWinWallet
         public static string nodeURL;
         public static bool IsWalletSyncing = true;
         public static bool ShowWalletSyncMessage = true;
-        public  WalletForm()
+        public WalletForm()
         {
             InitializeComponent();
             txSendAddressDropDown.SelectedItemChanged += delegate { txSendAddressDropDown_SelectedIndexChanged(txSendAddressDropDown.SelectedItem != null ? txSendAddressDropDown.SelectedItem.Text : "empty"); };
@@ -39,7 +39,6 @@ namespace ReserveBlockWinWallet
 
             System.Threading.Timer walletRefresh = new System.Threading.Timer(walletRefresh_Elapsed);
             walletRefresh.Change(10000, 20000);
-
 
             try
             {
@@ -59,7 +58,7 @@ namespace ReserveBlockWinWallet
             }
 
 
-            nodeURL = "http://localhost:8080";
+            nodeURL = "http://localhost:7292";
             //nodeURL = "https://localhost:7777";// testurl - not for production
 
             GetWalletOnline();
@@ -83,7 +82,7 @@ namespace ReserveBlockWinWallet
             if (ctrl.InvokeRequired)
             {
                 SetTextCallback d = new SetTextCallback(SetText);
-                
+
                 form.Invoke(d, new object[] { form, ctrl, text });
             }
             else
@@ -134,9 +133,9 @@ namespace ReserveBlockWinWallet
                             if (Response.StatusCode == System.Net.HttpStatusCode.OK)
                             {
                                 string data = await Response.Content.ReadAsStringAsync();
-                                
 
-                                if(data == "Online")
+
+                                if (data == "Online")
                                 {
                                     onlineStatus = "Online";
                                 }
@@ -182,14 +181,14 @@ namespace ReserveBlockWinWallet
                             var peerCount = walInfo[1];
                             var walletSync = walInfo[2].ToLower();
 
-                            if(walletSync == "true")
+                            if (walletSync == "true")
                             {
                                 IsWalletSyncing = true;
                             }
                             else
                             {
-                                ShowWalletSyncMessage = false;
-                                if(ShowWalletSyncMessage == true)
+                                IsWalletSyncing = false;
+                                if (ShowWalletSyncMessage == true)
                                 {
                                     ShowWalletSyncMessage = false;
                                     var walletSyncedText = Environment.NewLine + "Your wallet is now synced. Thank you for waiting.";
@@ -202,10 +201,10 @@ namespace ReserveBlockWinWallet
                             //peerCountLabel.Text = peerCount + " / 6";
                             //blockHeightLabel.Text = blockHeight;
 
-                            dashboardMainBox.AppendText(Environment.NewLine);
-                            dashboardMainBox.AppendText("Current Block Height is: " + blockHeight);
-                            dashboardMainBox.AppendText(Environment.NewLine);
-                            dashboardMainBox.AppendText("You are connected to -> " + peerCount + " <- peers.");
+                            //dashboardMainBox.AppendText(Environment.NewLine);
+                            //dashboardMainBox.AppendText("Current Block Height is: " + blockHeight);
+                            //dashboardMainBox.AppendText(Environment.NewLine);
+                            //dashboardMainBox.AppendText("You are connected to -> " + peerCount + " <- peers.");
                         }
                         else
                         {
@@ -273,14 +272,14 @@ namespace ReserveBlockWinWallet
                         {
                             string data = await Response.Content.ReadAsStringAsync();
 
-                            if(data != "No Accounts")
+                            if (data != "No Accounts")
                             {
                                 var accounts = JsonConvert.DeserializeObject<List<Account>>(data);
                                 accounts.ForEach(x =>
                                 {
                                     var addr = new CrownDropDownItem(x.Address);
                                     //SetText(this, blockHeightLabel, blockHeight);
-                                    
+
                                     txSendAddressDropDown.Items.Add(addr);
                                     recAddressDropDownList.Items.Add(addr);
                                 });
@@ -378,6 +377,72 @@ namespace ReserveBlockWinWallet
         }
         #endregion
 
+        #region Turn ON validating
+        public async Task<string> TurnValidatorOn(string address)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string endpoint = nodeURL + "/api/V1/TurnOnValidator/" + address;
+                    using (var Response = await client.GetAsync(endpoint))
+                    {
+                        if (Response.StatusCode == System.Net.HttpStatusCode.OK)
+                        {
+                            string data = await Response.Content.ReadAsStringAsync();
+
+                            return data;
+
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return "Failed - Wallet Core may be closed or crashed.";
+        }
+        #endregion
+
+        #region Turn Off validating
+        public async Task<string> TurnValidatorOff(string address)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string endpoint = nodeURL + "/api/V1/TurnOffValidator/" + address;
+                    using (var Response = await client.GetAsync(endpoint))
+                    {
+                        if (Response.StatusCode == System.Net.HttpStatusCode.OK)
+                        {
+                            string data = await Response.Content.ReadAsStringAsync();
+
+                            return data;
+
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return "Failed - Wallet Core may be closed or crashed.";
+        }
+        #endregion
+
         #region Get the Wallet Info
         public async Task<Account?> GetWalletInfo(string addr)
         {
@@ -429,11 +494,11 @@ namespace ReserveBlockWinWallet
                         {
                             string data = await Response.Content.ReadAsStringAsync();
 
-                            if(data != "Fail")
+                            if (data != "Fail")
                             {
                                 return data;
                             }
-                            
+
                         }
                         else
                         {
@@ -511,21 +576,22 @@ namespace ReserveBlockWinWallet
                                 SetText(this, dashRecentTxBox, " ");
 
                                 var transactions = JsonConvert.DeserializeObject<List<Transaction>>(data);
-                                if(transactions != null)
+                                if (transactions != null)
                                 {
-                                    transactions.OrderByDescending(x => x.Height).Take(20).ToList().ForEach(x => {
+                                    transactions.OrderByDescending(x => x.Height).Take(20).ToList().ForEach(x =>
+                                    {
                                         var row = "From: " + x.FromAddress + Environment.NewLine
                                         + "To: " + x.ToAddress + Environment.NewLine
                                         + "Amount: " + x.Amount.ToString("0.00") + Environment.NewLine
                                         + "Height: " + x.Height.ToString() + Environment.NewLine + Environment.NewLine;
-                                        
+
                                         SetTextAppend(this, dashRecentTxBox, row);
                                     });
 
-                                    
+
                                     transactionsGrid.DataSource = transactions.OrderByDescending(x => x.Height).ToList();
                                 }
-                                
+
 
                             }
                         }
@@ -693,7 +759,7 @@ namespace ReserveBlockWinWallet
 
         private async void recAddressDropDownList_SelectedIndexChanged(string item)
         {
-            if(item != "empty")
+            if (item != "empty")
             {
                 var account = await GetWalletInfo(item);
 
@@ -835,11 +901,28 @@ namespace ReserveBlockWinWallet
 
             return prompt.ShowDialog() == DialogResult.OK ? textBox.Text : "";
         }
+
+        public static string ShowDialogValidatorWait(string text, string caption)
+        {
+            Form prompt = new Form()
+            {
+                Width = 500,
+                Height = 150,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                Text = caption,
+                StartPosition = FormStartPosition.CenterScreen
+            };
+            Label textLabel = new Label() { Left = 50, Top = 20, Text = text, Width = 300 };
+
+            prompt.Controls.Add(textLabel);
+
+            return "";
+        }
         #endregion
 
         private async void lostAcceptButton5_Click(object sender, EventArgs e)
         {
-            if(IsWalletSyncing == false)
+            if (IsWalletSyncing == false)
             {
                 DialogResult dialogResult = MessageBox.Show("Are you sure you want to send funds?", "Are you sure you want to send funds?", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
@@ -903,7 +986,7 @@ namespace ReserveBlockWinWallet
 
         private async void startValiBtn_Click(object sender, EventArgs e)
         {
-            if(IsWalletSyncing == false)
+            if (IsWalletSyncing == false)
             {
                 var post = new StringBuilder();
                 if (valiDropDownList.SelectedItem == null)
@@ -916,27 +999,33 @@ namespace ReserveBlockWinWallet
 
                     if (addr != "")
                     {
-                        string promptValue = ShowDialogValidator("Choose a Unique Name for your Masternode.", "Name your Masternode!");
-
-                        if (promptValue != "")
+                        var valResult = await TurnValidatorOn(addr);
+                        if (valResult != "STV")
                         {
-                            DialogResult dialogResult = MessageBox.Show("Are you sure you want to activate masternode?", "Are you sure you?", MessageBoxButtons.YesNo);
-                            if (dialogResult == DialogResult.Yes)
-                            {
-                                //do something
-                                var result = await StartValidating(addr, promptValue);
-                                MessageBox.Show(result);
+                            MessageBox.Show(valResult);
+                        }
+                        else
+                        {
+                            string promptValue = ShowDialogValidator("Choose a Unique Name for your Masternode.", "Name your Masternode!");
 
-                            }
-                            else if (dialogResult == DialogResult.No)
+                            if (promptValue != "")
                             {
-                                //do something else
+                                DialogResult dialogResult = MessageBox.Show("Are you sure you want to activate masternode?", "Are you sure you?", MessageBoxButtons.YesNo);
+                                if (dialogResult == DialogResult.Yes)
+                                {
+                                    //do something
+                                    MessageBox.Show("You are now broadcoasting to node. Please do not close the wallet until you receive another confirmation box like this one.");
+                                    var result = await StartValidating(addr, promptValue);
+                                    MessageBox.Show(result);
+
+                                }
+                                else if (dialogResult == DialogResult.No)
+                                {
+                                    //do something else
+                                }
                             }
                         }
-
-
                     }
-                    //MessageBox.Show(post.ToString());
                 }
             }
             else
@@ -959,7 +1048,7 @@ namespace ReserveBlockWinWallet
 
         private void chatButtonRight1_Click(object sender, EventArgs e)
         {
-            if(recAddressLabel.Text != "--" && recAddressLabel.Text.StartsWith("R"))
+            if (recAddressLabel.Text != "--" && recAddressLabel.Text.StartsWith("R"))
             {
                 Clipboard.SetText(recAddressLabel.Text);
                 MessageBox.Show("Address copied to clipboard.");
@@ -970,7 +1059,7 @@ namespace ReserveBlockWinWallet
         {
             string promptValue = ShowDialog("Insert Private Key", "Import Private Key");
 
-            if(promptValue != "")
+            if (promptValue != "")
             {
                 var data = await ImportPrivateKey(promptValue);
 
@@ -993,5 +1082,30 @@ namespace ReserveBlockWinWallet
             }
         }
 
+        //Turn Validator Off
+        private async void lostCancelButton2_Click(object sender, EventArgs e)
+        {
+            if (IsWalletSyncing == false)
+            {
+                var post = new StringBuilder();
+                if (valiDropDownList.SelectedItem == null)
+                {
+                    MessageBox.Show("You must select an address!");
+                }
+                else
+                {
+                    var addr = valiDropDownList.SelectedItem.Text;
+
+                    if (addr != "")
+                    {
+                        var valResult = await TurnValidatorOff(addr);
+
+                        MessageBox.Show(valResult);
+                        
+                    }
+
+                }
+            }
+        }
     }
 }

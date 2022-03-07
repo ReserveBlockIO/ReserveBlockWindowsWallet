@@ -1324,7 +1324,8 @@
             this.lostCancelButton2.Name = "lostCancelButton2";
             this.lostCancelButton2.Size = new System.Drawing.Size(120, 40);
             this.lostCancelButton2.TabIndex = 48;
-            this.lostCancelButton2.Text = "Clear";
+            this.lostCancelButton2.Text = "Stop Validating";
+            this.lostCancelButton2.Click += new System.EventHandler(this.lostCancelButton2_Click);
             // 
             // startValiBtn
             // 
