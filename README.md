@@ -11,7 +11,7 @@
 
 ![GitHub Release Date](https://img.shields.io/github/release-date/ReserveBlockIO/ReserveBlockWindowsWallet)
 
-# ReserverBlock Windows GUI wallet
+# ReserverBlock Windows GUI wallet **Deprecated**
 For more information and to follow latest news go to:
 https://reserveblock.io
 
